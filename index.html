@@ -4,68 +4,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sabatiny – Personal Portfolio</title>
+  <title>Leonardo – AI & Cognitive Science</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav class="navbar">
-    <a href="index.html" class="logo">Sabatiny</a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
-    </ul>
+    <div class="container">
+      <a href="index.html" class="logo">Leonardo</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
   </nav>
 
   <header class="hero">
-    <h1>Hi, I'm Sabatiny.<br>I build for the web.</h1>
-    <p>A passionate developer creating intuitive and futuristic digital experiences. Explore my work and get to know me.</p>
-    <a href="projects.html" class="btn">View My Work</a>
+    <div class="container">
+      <h1>Cultivating a Life of Leverage.</h1>
+      <p class="subtitle">
+        First-year Artificial Intelligence student at the University of Amsterdam, focusing on the responsible application of technology through discipline, rationality, and continuous cognitive development.
+      </p>
+      <a href="about.html" class="btn">Learn More About Me</a>
+    </div>
   </header>
 
   <main>
-    <section id="featured-projects" class="projects-grid">
-      <h1>Featured Projects</h1>
-      <div class="grid-container">
-        <!-- Project 1 -->
-        <div class="card">
-          <img src="https://placehold.co/600x400/0D1117/388bfd?text=Project+Alpha" alt="Project Alpha">
-          <div class="card-content">
-            <h2>Project Alpha</h2>
-            <p>A deep dive into creating a scalable backend service using modern cloud architecture and real-time data processing.</p>
-            <div class="card-tags">
-              <span class="tag">Node.js</span>
-              <span class="tag">React</span>
-              <span class="tag">AWS</span>
+    <div class="page-section">
+      <div class="container">
+        <h2>Featured Projects</h2>
+        <div class="project-grid">
+          <div class="card">
+            <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=NLP" alt="NLP Project"></div>
+            <div class="card-content">
+              <h3>Ethical Sentiment Analysis</h3>
+              <p>A model designed to analyze multilingual text while mitigating biases often found in traditional NLP pipelines. Focuses on fairness and transparency in AI.</p>
+              <div class="card-tags">
+                <span class="tag">Python</span>
+                <span class="tag">PyTorch</span>
+                <span class="tag">NLP</span>
+                <span class="tag">Ethics</span>
+              </div>
             </div>
-            <a href="#" class="card-btn">View Details</a>
           </div>
-        </div>
-        <!-- Project 2 -->
-        <div class="card">
-          <img src="https://placehold.co/600x400/0D1117/388bfd?text=Project+Beta" alt="Project Beta">
-          <div class="card-content">
-            <h2>Project Beta</h2>
-            <p>An interactive data visualization dashboard that helps users understand complex datasets through a clean and intuitive UI.</p>
-            <div class="card-tags">
-              <span class="tag">D3.js</span>
-              <span class="tag">Vue.js</span>
-              <span class="tag">Firebase</span>
+          <div class="card">
+            <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=Vision" alt="Computer Vision Project"></div>
+            <div class="card-content">
+              <h3>Algorithm Design Study</h3>
+              <p>An in-depth analysis and implementation of various sorting and search algorithms, evaluating their performance on complex, high-dimensional datasets.</p>
+              <div class="card-tags">
+                <span class="tag">Data Structures</span>
+                <span class="tag">Algorithms</span>
+                <span class="tag">Statistics</span>
+              </div>
             </div>
-            <a href="#" class="card-btn">View Details</a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer class="footer">
-    <ul class="social-links">
-      <li><a href="#" aria-label="GitHub"> G </a></li> <!-- Replace with SVG icon -->
-      <li><a href="#" aria-label="LinkedIn"> L </a></li> <!-- Replace with SVG icon -->
-      <li><a href="#" aria-label="Twitter"> T </a></li> <!-- Replace with SVG icon -->
-    </ul>
-    <p>© 2024 Sabatiny. All rights reserved.</p>
+    <div class="container">
+      <p class="copyright">© 2024 Leonardo</p>
+      <div class="footer-links">
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
   </footer>
 </body>
 </html>
