@@ -1,5 +1,5 @@
 /* style.css */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
 
 :root {
   --bg-dark: #0A0A0A;
@@ -22,7 +22,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Sora', sans-serif; /* Changed from 'Inter' */
   background-color: var(--bg-dark);
   color: var(--text-secondary);
   line-height: 1.7;
@@ -113,6 +113,10 @@ a:hover { color: var(--accent-hover); }
   .project-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (min-width: 1024px) {
+  .project-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
 .card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
@@ -185,3 +189,280 @@ a:hover { color: var(--accent-hover); }
 }
 .footer-links a:hover { color: var(--text-primary); }
 .copyright { color: var(--text-secondary); font-size: 0.9rem; }
+
+/* --- Future Projects List --- */
+.future-project-list {
+  margin-top: 4rem;
+}
+.future-project-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.future-project-item:first-child {
+  border-top: 1px solid var(--border-color);
+}
+.future-project-item h3 {
+  margin-bottom: 0.5rem;
+}
+.future-project-item p {
+  margin-bottom: 0;
+  max-width: 80ch;
+  color: var(--text-secondary);
+}
+
+/* --- AI Chat Bot Styles --- */
+.chat-container {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative; /* For positioning suggestions */
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Hide scrollbar but keep it functional */
+.chat-messages::-webkit-scrollbar { width: 6px; }
+.chat-messages::-webkit-scrollbar-track { background: transparent; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+/* NEW: Styles for the suggestion prompts */
+.chat-suggestions {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 80%;
+  align-items: center;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.chat-container.has-messages .chat-suggestions {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.suggestion-item {
+  background-color: rgba(37, 99, 235, 0.1);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.suggestion-item:hover {
+  background-color: var(--accent);
+  border-color: var(--accent-hover);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+
+/* Styling the message bubbles */
+.message {
+  max-width: 85%;
+  line-height: 1.6;
+  padding: 0.75rem 1.25rem;
+  border-radius: 18px;
+  word-wrap: break-word;
+}
+.message.user {
+  background-color: var(--accent);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+.message.bot {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+
+/* NEW: Styles for Markdown content inside bot messages */
+.message.bot p, .message.bot ul, .message.bot ol { margin-bottom: 0.75em; }
+.message.bot p:last-child, .message.bot ul:last-child, .message.bot ol:last-child { margin-bottom: 0; }
+.message.bot ul { list-style: disc; padding-left: 1.5em; }
+.message.bot li { margin-bottom: 0.25em; }
+.message.bot strong { color: #fff; font-weight: 600; }
+.message.bot a { color: var(--accent-hover); text-decoration: underline; }
+
+/* Input area styling */
+.chat-input-area {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+.chat-input-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.chat-input-form input {
+  flex-grow: 1;
+  background-color: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+.chat-input-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.chat-input-form button {
+  flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+/* NEW: Typing indicator */
+.message.typing {
+  color: var(--text-secondary);
+  font-style: italic;
+  background: none;
+  padding: 0;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between; /* Changed from flex-end */
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  gap: 1rem; /* Increased gap */
+}
+
+.chat-controls-right {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Style the new model selector */
+.model-selector-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.model-selector-container svg {
+    width: 20px;
+    height: 20px;
+}
+
+.model-selector {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  -webkit-appearance: none; /* Removes default OS styling */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.model-selector:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Style the options within the dropdown */
+.model-selector option {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+}
+
+.chat-control-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.chat-control-btn:hover {
+  background-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.chat-control-btn:disabled {
+  color: #404040; /* A faded-out color */
+  cursor: not-allowed;
+  background: none;
+}
+
+.chat-control-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Updated Input Area */
+.chat-input-area {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: rgba(10, 10, 10, 0.5); /* Slightly transparent */
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.chat-input-form input {
+  font-family: 'Sora', sans-serif; /* Use the new font in the input */
+  font-size: 0.95rem;
+}
+
+/* Style the send button to be an icon */
+.send-btn {
+  background: none;
+  border: none;
+  padding: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.send-btn svg {
+  width: 24px;
+  height: 24px;
+  color: var(--accent);
+  transition: color 0.2s ease;
+}
+
+.send-btn:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+}
+
+.send-btn:hover svg {
+  color: var(--accent-hover);
+}

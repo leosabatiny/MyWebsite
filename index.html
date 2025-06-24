@@ -6,6 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leonardo – AI & Cognitive Science</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Add this to allow the entire card to be a clickable link */
+    .card-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -35,31 +43,51 @@
       <div class="container">
         <h2>Featured Projects</h2>
         <div class="project-grid">
-          <div class="card">
-            <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=NLP" alt="NLP Project"></div>
-            <div class="card-content">
-              <h3>Ethical Sentiment Analysis</h3>
-              <p>A model designed to analyze multilingual text while mitigating biases often found in traditional NLP pipelines. Focuses on fairness and transparency in AI.</p>
-              <div class="card-tags">
-                <span class="tag">Python</span>
-                <span class="tag">PyTorch</span>
-                <span class="tag">NLP</span>
-                <span class="tag">Ethics</span>
+          
+          <a href="trading-bot.html" class="card-link">
+            <div class="card">
+              <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=AI+Bot" alt="AI Trading Bot"></div>
+              <div class="card-content">
+                <h3>AI Market Analyst Bot</h3>
+                <p>An interactive chat assistant powered by large language models. Ask questions about financial markets, economic trends, and stock analysis in a conversational interface.</p>
+                <div class="card-tags">
+                  <span class="tag">AI</span>
+                  <span class="tag">API Integration</span>
+                  <span class="tag">JavaScript</span>
+                  <span class="tag">Node.js</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=Vision" alt="Computer Vision Project"></div>
-            <div class="card-content">
-              <h3>Algorithm Design Study</h3>
-              <p>An in-depth analysis and implementation of various sorting and search algorithms, evaluating their performance on complex, high-dimensional datasets.</p>
-              <div class="card-tags">
-                <span class="tag">Data Structures</span>
-                <span class="tag">Algorithms</span>
-                <span class="tag">Statistics</span>
+          </a>
+
+          <a href="physics-cube.html" class="card-link">
+            <div class="card">
+              <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=3D+Physics" alt="3D Physics Simulation"></div>
+              <div class="card-content">
+                <h3>Interactive Physics Simulation</h3>
+                <p>A real-time 3D simulation built with Three.js and the Cannon-es.js physics engine. Experience realistic gravity and bouncing within a rotating environment.</p>
+                <div class="card-tags">
+                  <span class="tag">Three.js</span>
+                  <span class="tag">Physics Engine</span>
+                  <span class="tag">3D</span>
+                  <span class="tag">JavaScript</span>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
+
+          <a href="clock.html" class="card-link">
+            <div class="card">
+              <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=Clock" alt="Analog Clock Project"></div>
+              <div class="card-content">
+                <h3>Analog & Digital Clocks</h3>
+                <!-- UPDATED DESCRIPTION -->
+                <p>A side-by-side simulation of two clocks. A classic analog clock with discrete ticking hands and a retro digital clock with 7-segment glyphs, both built with the HTML Canvas API.</p>
+                <div class="card-tags"><span class="tag">Canvas API</span><span class="tag">Animation</span><span class="tag">JavaScript</span></div>
+              </div>
+            </div>
+          </a>
+
         </div>
       </div>
     </div>
@@ -69,8 +97,8 @@
     <div class="container">
       <p class="copyright">© 2024 Leonardo</p>
       <div class="footer-links">
-        <a href="#">LinkedIn</a>
-        <a href="#">GitHub</a>
+        <a href="https://www.linkedin.com/in/leonardo-s-00a346254/" target="_blank">LinkedIn</a>
+        <a href="https://github.com/leosabatiny" target="_blank">GitHub</a>
       </div>
     </div>
   </footer>

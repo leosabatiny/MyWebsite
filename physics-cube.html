@@ -1,0 +1,138 @@
+<!-- physics-cube.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Physics Simulation – Leonardo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            overflow: hidden; 
+        }
+        #info {
+            position: absolute;
+            top: 80px;
+            width: 100%;
+            text-align: center;
+            z-index: 100;
+            display:block;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        #info a {
+            color: var(--accent);
+        }
+        .navbar {
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+        .footer {
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+        .navbar.is-visible,
+        .footer.is-visible,
+        #info.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="logo">Leonardo</a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div id="info">
+        Interactive Physics Simulation by Leonardo.
+        <br>Built with <a href="https://threejs.org" target="_blank">Three.js</a> & <a href="https://pmnd.rs/cannon-es" target="_blank">Cannon-es.js</a>
+    </div>
+    
+    <footer class="footer" style="position: absolute; bottom: 0; width: 100%; margin-top: 0; background: rgba(10, 10, 10, 0.5);">
+      <div class="container">
+        <p class="copyright">© 2024 Leonardo</p>
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/leonardo-s-00a346254/" target="_blank">LinkedIn</a>
+          <a href="https://github.com/leosabatiny" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+                "cannon-es": "https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"
+            }
+        }
+    </script>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        import * as CANNON from 'cannon-es';
+
+        // --- 1. Scene Setup ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        // CHANGED: Increased the Z position to move the camera further away
+        camera.position.z = 18;
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x0A0A0A);
+        document.body.appendChild(renderer.domElement);
+        
+        // --- Lights, Physics, Materials ... (No changes) ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7.5);
+        scene.add(directionalLight);
+        const world = new CANNON.World({ gravity: new CANNON.Vec3(0, -25, 0) });
+        const contactMaterial = new CANNON.ContactMaterial(new CANNON.Material(), new CANNON.Material(), { friction: 0.1, restitution: 1 });
+        world.addContactMaterial(contactMaterial);
+
+        // --- Objects (No changes) ---
+        const sphereRadius = 1;
+        const sphereMesh = new THREE.Mesh(new THREE.SphereGeometry(sphereRadius, 32, 32), new THREE.MeshStandardMaterial({ color: 0x2563EB }));
+        scene.add(sphereMesh);
+        const sphereBody = new CANNON.Body({ mass: 5, shape: new CANNON.Sphere(sphereRadius), position: new CANNON.Vec3(0, 2, 0) });
+        world.addBody(sphereBody);
+        const cubeSize = 10;
+        const cubeGroup = new THREE.Group();
+        scene.add(cubeGroup);
+        cubeGroup.position.y = 1;
+        const wallShape = new CANNON.Box(new CANNON.Vec3(cubeSize / 2, cubeSize / 2, 0.5 / 2));
+        const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, transparent: true, opacity: 0.2 });
+        const wallPositions = [ { pos: [0, 0, -cubeSize / 2], rot: [0, 0, 0] }, { pos: [0, 0, cubeSize / 2], rot: [0, 0, 0] }, { pos: [cubeSize / 2, 0, 0], rot: [0, Math.PI / 2, 0] }, { pos: [-cubeSize / 2, 0, 0], rot: [0, Math.PI / 2, 0] }, { pos: [0, -cubeSize / 2, 0], rot: [Math.PI / 2, 0, 0] }, { pos: [0, cubeSize / 2, 0], rot: [Math.PI / 2, 0, 0] } ];
+        const cubeBody = new CANNON.Body({ mass: 0 }); 
+        cubeBody.position.y = 1;
+        wallPositions.forEach(p => { const wallMesh = new THREE.Mesh(new THREE.BoxGeometry(cubeSize, cubeSize, 0.5), wallMaterial); cubeBody.addShape(wallShape, new CANNON.Vec3(...p.pos), new CANNON.Quaternion().setFromEuler(...p.rot)); wallMesh.position.set(...p.pos); wallMesh.rotation.set(...p.rot); cubeGroup.add(wallMesh); });
+        world.addBody(cubeBody);
+
+        // --- Animation Loop & UI Logic (No changes) ---
+        const clock = new THREE.Clock();
+        function animate() { const deltaTime = clock.getDelta(); const rotationSpeed = 0.5; cubeGroup.rotation.y += rotationSpeed * deltaTime; cubeGroup.rotation.x += rotationSpeed * deltaTime * 0.5; cubeBody.quaternion.copy(cubeGroup.quaternion); world.step(1 / 60, deltaTime, 10); sphereMesh.position.copy(sphereBody.position); sphereMesh.quaternion.copy(sphereBody.quaternion); renderer.render(scene, camera); requestAnimationFrame(animate); }
+        animate();
+        window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+        const navbar = document.querySelector('.navbar'); const footer = document.querySelector('.footer'); const infoText = document.getElementById('info');
+        window.addEventListener('mousemove', (event) => { if (event.clientY < 120) { navbar.classList.add('is-visible'); infoText.classList.add('is-visible'); } else { navbar.classList.remove('is-visible'); infoText.classList.remove('is-visible'); } if (window.innerHeight - event.clientY < 100) { footer.classList.add('is-visible'); } else { footer.classList.remove('is-visible'); } });
+    </script>
+</body>
+</html>
