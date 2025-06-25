@@ -1,8 +1,8 @@
 // weather.js
 
 // --- 1. CONFIGURATION ---
-// PASTE YOUR API KEY HERE
-const API_KEY = '7415c75cda9307962882f308d8e7f806';
+// No API key needed here, as we are using a backend proxy to handle API requests.
+// This proxy will handle the OpenWeatherMap API key securely on the server side.
 
 // --- 2. DOM ELEMENT SELECTIONS ---
 const widget = document.getElementById('weather-widget');
@@ -39,11 +39,14 @@ function onError(error) {
 }
 
 // --- 4. API FETCH ---
-async function fetchWeather(lat, lon) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+async function fetchWeatherFromProxy(lat, lon) {
+    // THIS IS THE CRUCIAL CHANGE
+    // The URL now points to YOUR backend server, not OpenWeatherMap.
+    // NOTE: When deployed, this will be your Render URL. For local testing, it's localhost.
+  const proxyUrl = `https://leonardo-portfolio-api.onrender.com/api/weather?lat=${lat}&lon=${lon}`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(proxyUrl);
         if (!response.ok) {
             throw new Error(`API call failed: ${response.statusText}`);
         }
@@ -51,7 +54,7 @@ async function fetchWeather(lat, lon) {
         updateUI(data);
     } catch (error) {
         console.error('Weather Fetch Error:', error);
-        loadingMessage.textContent = 'Could not fetch weather data. Please check the API key.';
+        loadingMessage.textContent = 'Could not fetch weather data from server.';
     }
 }
 

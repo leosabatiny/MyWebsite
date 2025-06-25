@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingIndicator = addMessage('Leo is thinking...', 'bot', 'typing');
 
     try {
-      const response = await fetch('http://localhost:3000/api/chat', {
+        const response = await fetch('https://leonardo-portfolio-api.onrender.com/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
