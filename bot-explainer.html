@@ -1,0 +1,117 @@
+<!-- bot-explainer.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Code Explainer – Leonardo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        #explainer-content { padding-top: 2rem; display: flex; flex-direction: column; gap: 2rem; }
+        .code-block { border: 1px solid var(--border-color); border-radius: 8px 8px 0 0; overflow: hidden; background: var(--bg-surface); }
+        .code-block pre[class*="language-"] { margin: 0 !important; border-radius: 0 !important; background: transparent !important; white-space: pre-wrap; word-break: break-all; padding: 1rem; }
+        .explanation-block { background-color: var(--bg-dark); border: 1px solid var(--border-color); border-top: none; border-radius: 0 0 8px 8px; padding: 1.5rem; margin-top: -1px; }
+        .explanation-block h3, .section-title { margin-top: 0; color: var(--text-primary); }
+        .explanation-block p { color: var(--text-secondary); font-size: 0.95rem; margin: 0; }
+        .section-title { border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin: 2rem 0 0 0; }
+        .section-title:first-child { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container"> <a href="index.html" class="logo">Leonardo</a> <ul class="nav-links"> <li><a href="index.html">Home</a></li> <li><a href="projects.html">Projects</a></li> <li><a href="trading-bot.html">Back to Bot</a></li> </ul> </div>
+    </nav>
+    <div class="page-section"> <div class="container"> <h2>Bot Code Explainer</h2> <p>The code for the AI Market Analyst is broken down below. It consists of a frontend (the chat interface) and a backend (the server that talks to the AI).</p> <div id="explainer-content"> <p>Loading code...</p> </div> </div> </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const explainerContent = document.getElementById('explainer-content');
+            const explanations = {
+                'setup': { title: 'DOM Element Setup', text: 'This block runs when the page loads. It gets references to all the interactive HTML elements (buttons, inputs, etc.) so the script can control them.' },
+                'initial-state': { title: 'Initial UI State', text: 'This small function runs once to disable the "Save" and "Clear" buttons, since there is no chat to save or clear at the beginning.' },
+                'listeners': { title: 'Event Listeners', text: 'This is the core of the user interaction. It listens for form submissions (sending a message), clicks on suggestion prompts, and clicks on the save/clear buttons, triggering the appropriate logic for each action.' },
+                'add-message': { title: 'Adding a Message to the UI', text: 'A reusable function to display a new message in the chat window. It handles creating the HTML for user messages, bot replies, and the "thinking..." indicator. It uses the `marked` library to render the bot\'s Markdown responses correctly.' },
+                'server-setup': { title: 'Backend Server Setup', text: 'This sets up the Node.js server using the Express framework. It configures CORS to allow requests from the frontend and initializes the AI and financial data API clients with the secret keys from the `.env` file.' },
+                'classifier-prompt': { title: 'The Classifier Prompt', text: 'This is the first "brain" of the AI. It\'s a carefully crafted instruction that tells the language model to analyze the user\'s question and return a simple JSON object indicating if a stock lookup is needed and what the ticker is.' },
+                'generator-prompt': { title: 'The Generator Prompt', text: 'This is the second "brain" of the AI. It takes the original question and any real-time data we fetched, and instructs the model to formulate a helpful, human-readable answer using Markdown formatting.' },
+                'server-logic': { title: 'The Main API Endpoint', text: 'This is the heart of the backend. It receives the user\'s message, sends it to the classifier, decides whether to call the financial API based on the result, and finally sends all the information to the generator to get the final answer, which it sends back to the frontend.' },
+                'server-start': { title: 'Starting the Server', text: 'This final block tells the server to start listening for requests on a specific port (3000), making the backend accessible to our frontend application.' },
+            };
+
+            async function processFile(filePath) {
+                const response = await fetch(filePath);
+                if (!response.ok) throw new Error(`Failed to fetch ${filePath}`);
+                const rawCode = await response.text();
+                const lines = rawCode.split('\n');
+                
+                let currentRegionKey = null;
+                let currentRegionLines = [];
+
+                for (const line of lines) {
+                    const startMatch = line.match(/\/\/ REGION START: ([\w-]+)/);
+                    const endMatch = line.match(/\/\/ REGION END:/);
+
+                    if (startMatch) {
+                        currentRegionKey = startMatch[1];
+                    } else if (endMatch) {
+                        if (currentRegionKey && currentRegionLines.length > 0) {
+                            createCodeExplanationPair(currentRegionKey, currentRegionLines.join('\n'));
+                        }
+                        currentRegionKey = null;
+                        currentRegionLines = [];
+                    } else if (currentRegionKey) {
+                        currentRegionLines.push(line);
+                    }
+                }
+            }
+            
+            async function initializeExplainer() {
+                try {
+                    explainerContent.innerHTML = '';
+                    
+                    const frontendTitle = document.createElement('h2');
+                    frontendTitle.className = 'section-title';
+                    frontendTitle.textContent = 'Frontend Logic (bot.js)';
+                    explainerContent.appendChild(frontendTitle);
+                    await processFile('bot.js');
+
+                    const backendTitle = document.createElement('h2');
+                    backendTitle.className = 'section-title';
+                    backendTitle.textContent = 'Backend Logic (server.js)';
+                    explainerContent.appendChild(backendTitle);
+                    
+                    // THE ONLY CHANGE IS HERE: Added "server/" to the path
+                    await processFile('server/server.js');
+
+                    Prism.highlightAll();
+
+                } catch (error) {
+                    console.error('Failed to load or process code:', error);
+                    explainerContent.innerHTML = '<p style="color: var(--text-primary);">Failed to load code. Please ensure you are running this from a local server (like VS Code\'s Live Server) and that the file paths are correct.</p>';
+                }
+            }
+
+            function createCodeExplanationPair(key, codeString) {
+                const explanation = explanations[key];
+                if (!explanation) return;
+                const codeBlockDiv = document.createElement('div');
+                codeBlockDiv.className = 'code-block';
+                const pre = document.createElement('pre');
+                const code = document.createElement('code');
+                code.className = 'language-javascript';
+                code.textContent = codeString;
+                pre.appendChild(code);
+                codeBlockDiv.appendChild(pre);
+                const explanationDiv = document.createElement('div');
+                explanationDiv.className = 'explanation-block';
+                explanationDiv.innerHTML = `<h3>${explanation.title}</h3><p>${explanation.text}</p>`;
+                explainerContent.appendChild(codeBlockDiv);
+                explainerContent.appendChild(explanationDiv);
+            }
+            initializeExplainer();
+        });
+    </script>
+</body>
+</html>

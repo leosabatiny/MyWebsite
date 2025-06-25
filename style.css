@@ -113,9 +113,7 @@ a:hover { color: var(--accent-hover); }
   .project-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (min-width: 1024px) {
-  .project-grid { grid-template-columns: repeat(3, 1fr); }
-}
+
 
 .card {
   background-color: var(--bg-surface);

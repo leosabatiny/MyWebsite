@@ -16,7 +16,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10vw; 
+            gap: 12vw; 
             height: 70vh; 
             margin-top: 64px;
             flex-wrap: wrap;
@@ -31,7 +31,6 @@
             border-radius: 15px;
         }
         #fun-fact-box {
-            /* UPDATED: Changed position from 'absolute' to 'fixed' */
             position: fixed; 
             bottom: 5%;
             left: 50%;
@@ -54,6 +53,36 @@
             opacity: 1;
             transform: translateX(-50%) translateY(0) scale(1);
         }
+        #code-explainer-btn {
+            position: fixed;
+            top: 64px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-15px);
+            z-index: 1000;
+            opacity: 0.25;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 1.25rem;
+            background-color: var(--accent);
+            color: #fff;
+            border: none;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            cursor: pointer;
+            font-family: 'Sora', sans-serif;
+            font-weight: 500;
+            text-decoration: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #code-explainer-btn:hover {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        #code-explainer-btn svg {
+            width: 20px;
+            height: 20px;
+        }
     </style>
 </head>
 <body>
@@ -74,9 +103,14 @@
         <canvas id="digitalCanvas"></canvas>
         <div id="fun-fact-box"></div>
     </div>
+    
+    <a href="clock-explainer.html" id="code-explainer-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        <span>Explain Code</span>
+    </a>
 
     <script>
-        // --- The JavaScript logic remains exactly the same ---
+        // REGION START: setup
         const analogCanvas = document.getElementById('analogCanvas');
         const analogCtx = analogCanvas.getContext('2d');
         const digitalCanvas = document.getElementById('digitalCanvas');
@@ -87,7 +121,9 @@
         const accentColor = style.getPropertyValue('--accent').trim();
         const primaryTextColor = style.getPropertyValue('--text-primary').trim();
         const offColor = '#262626';
+        // REGION END: setup
 
+        // REGION START: fun-facts
         const funFacts = [ "This is often called the 'witching hour,' a time associated with supernatural events in folklore.", "Deepest sleep stage. The body focuses on cellular repair and memory consolidation.", "The time with the fewest births and deaths, making it statistically the 'quietest' hour for human life events.", "Human body temperature is at its lowest point, a key part of the circadian rhythm.", "The body begins to produce cortisol to prepare for waking up. This is a common time for early-rising farmers to start their day.", "REM sleep is most intense just before waking, leading to vivid dreams.", "Often considered the start of the 'biological day' as melatonin secretion stops.", "The most popular time to wake up for the standard workday across many cultures.", "Cardiovascular activity is at its peak risk. Blood is thicker and blood pressure rises upon waking.", "Peak mental alertness begins for most people, making it a great time for complex tasks.", "Considered the most productive hour of the workday for tasks requiring high concentration.", "The brain starts to anticipate lunch, and focus may begin to wane.", "Known as 'solar noon,' when the sun is at its highest point in the sky.", "A post-lunch dip in energy is common, especially after a carb-heavy meal.", "Best time for coordination and reaction time, making it ideal for physical tasks or sports.", "The 'afternoon slump' typically ends, and a second wave of productivity can begin.", "A common time for an afternoon coffee break in many office cultures.", "The end of the standard 9-to-5 workday, leading to peak traffic in many cities.", "Greatest cardiovascular efficiency and muscle strength, an excellent time for a workout.", "The most common dinner time in many Western countries.", "A popular time for socializing, watching TV, or engaging in hobbies.", "The body begins to secrete melatonin, the hormone that signals it's time to sleep.", "The most common bedtime for adults. Bowel movements are suppressed to prepare for sleep.", "The mind is winding down, but this is also a peak time for creativity for 'night owls'." ];
 
         [analogCanvas, digitalCanvas].forEach(canvas => {
@@ -100,7 +136,9 @@
                 funFactBox.classList.remove('visible');
             });
         });
+        // REGION END: fun-facts
 
+        // REGION START: sizing
         function setSize() {
             const baseUnit = Math.min(window.innerWidth * 0.42, window.innerHeight * 0.45);
             const analogMultiplier = 1.2;
@@ -119,14 +157,18 @@
                 digitalCanvas.height = digitalHeight;
             }
         }
+        // REGION END: sizing
 
+        // REGION START: main-loop
         function drawAllClocks() {
             const now = new Date();
             drawAnalogClock(now);
             drawDigitalClock(now);
             requestAnimationFrame(drawAllClocks);
         }
+        // REGION END: main-loop
 
+        // REGION START: analog-clock
         function drawAnalogClock(now) {
             const radius = analogCanvas.height / 2;
             analogCtx.clearRect(0, 0, analogCanvas.width, analogCanvas.height);
@@ -169,7 +211,9 @@
             drawHand(analogCtx, secondPos, clockRadius * 0.85, 2, accentColor);
             analogCtx.restore();
         }
+        // REGION END: analog-clock
 
+        // REGION START: draw-digit
         const segments = [ [1,1,1,1,1,1,0], [0,1,1,0,0,0,0], [1,1,0,1,1,0,1], [1,1,1,1,0,0,1], [0,1,1,0,0,1,1], [1,0,1,1,0,1,1], [1,0,1,1,1,1,1], [1,1,1,0,0,0,0], [1,1,1,1,1,1,1], [1,1,1,1,0,1,1] ];
         
         function drawHand(ctx, pos, length, width, color) {
@@ -187,25 +231,28 @@
             ctx.stroke();
             ctx.rotate(-pos);
         }
+        // REGION END: draw-digit
         
+        // REGION START: digital-clock
         function drawDigitalClock(now) {
             digitalCtx.clearRect(0, 0, digitalCanvas.width, digitalCanvas.height);
             const h = String(now.getHours()).padStart(2, '0');
             const m = String(now.getMinutes()).padStart(2, '0');
             const s = String(now.getSeconds()).padStart(2, '0');
-            const digitWidth = digitalCanvas.width / 7.5;
-            const digitHeight = digitWidth * 2;
-            const totalContentWidth = digitWidth * 7;
+            const slotWidth = digitalCanvas.width / 7.5;
+            const glyphWidth = slotWidth * 0.85; 
+            const digitHeight = glyphWidth * 2; 
+            const totalContentWidth = slotWidth * 7;
             const startX = (digitalCanvas.width - totalContentWidth) / 2;
             const startY = (digitalCanvas.height - digitHeight) / 2;
-            drawDigit(digitalCtx, h[0], startX, startY, digitWidth, digitHeight);
-            drawDigit(digitalCtx, h[1], startX + digitWidth, startY, digitWidth, digitHeight);
-            drawColon(digitalCtx, startX + digitWidth * 2, startY, digitWidth / 2, digitHeight, now);
-            drawDigit(digitalCtx, m[0], startX + digitWidth * 2.5, startY, digitWidth, digitHeight);
-            drawDigit(digitalCtx, m[1], startX + digitWidth * 3.5, startY, digitWidth, digitHeight);
-            drawColon(digitalCtx, startX + digitWidth * 4.5, startY, digitWidth / 2, digitHeight, now);
-            drawDigit(digitalCtx, s[0], startX + digitWidth * 5, startY, digitWidth, digitHeight);
-            drawDigit(digitalCtx, s[1], startX + digitWidth * 6, startY, digitWidth, digitHeight);
+            drawDigit(digitalCtx, h[0], startX, startY, glyphWidth, digitHeight);
+            drawDigit(digitalCtx, h[1], startX + slotWidth, startY, glyphWidth, digitHeight);
+            drawColon(digitalCtx, startX + slotWidth * 2, startY, slotWidth / 2, digitHeight, now);
+            drawDigit(digitalCtx, m[0], startX + slotWidth * 2.5, startY, glyphWidth, digitHeight);
+            drawDigit(digitalCtx, m[1], startX + slotWidth * 3.5, startY, glyphWidth, digitHeight);
+            drawColon(digitalCtx, startX + slotWidth * 4.5, startY, slotWidth / 2, digitHeight, now);
+            drawDigit(digitalCtx, s[0], startX + slotWidth * 5, startY, glyphWidth, digitHeight);
+            drawDigit(digitalCtx, s[1], startX + slotWidth * 6, startY, glyphWidth, digitHeight);
         }
 
         function drawDigit(ctx, digit, x, y, w, h) {
@@ -235,6 +282,7 @@
             ctx.fillRect(x + w / 2 - size / 2, y + h * 0.25, size, size);
             ctx.fillRect(x + w / 2 - size / 2, y + h * 0.75 - size, size, size);
         }
+        // REGION END: digital-clock
 
         window.addEventListener('resize', setSize);
         setSize();

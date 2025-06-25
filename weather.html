@@ -1,0 +1,99 @@
+<!-- weather.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Weather – Leonardo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body, html {
+            height: 100%;
+        }
+        .weather-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100% - 64px); /* Full height minus navbar */
+            margin-top: 64px;
+        }
+        .weather-widget {
+            width: 100%;
+            max-width: 350px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            /* A subtle fade-in animation */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .weather-widget h2 {
+            margin-top: 0;
+            font-size: 1.75rem;
+            border: none;
+            padding: 0;
+        }
+        .weather-widget .icon {
+            width: 100px;
+            height: 100px;
+            margin: 0.5rem auto;
+            /* Filter to make the icon match the site's white text color */
+            filter: brightness(0) invert(0.9);
+        }
+        .weather-widget .temp {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+            margin: 0;
+        }
+        .weather-widget .description {
+            font-size: 1.1rem;
+            text-transform: capitalize;
+            margin-top: 0.5rem;
+        }
+        .weather-widget .min-max {
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+        }
+        #loading-message {
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Leonardo</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="weather-container">
+        <div class="weather-widget" id="weather-widget" style="display: none;">
+            <h2 id="city">City Name</h2>
+            <img src="" alt="Weather icon" class="icon" id="weather-icon">
+            <p class="temp" id="temperature">--°C</p>
+            <p class="description" id="weather-desc">Description</p>
+            <p class="min-max" id="min-max-temp">L: --° / H: --°</p>
+        </div>
+        <p id="loading-message">Fetching your location and weather data...</p>
+    </div>
+
+    <!-- The logic will be in its own file -->
+    <script src="weather.js" defer></script>
+</body>
+</html>

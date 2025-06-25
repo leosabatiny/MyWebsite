@@ -1,6 +1,7 @@
 // bot.js
+
+// REGION START: setup
 document.addEventListener('DOMContentLoaded', () => {
-  // --- DOM Element Selections ---
   const chatForm = document.getElementById('chat-form');
   const messageInput = document.getElementById('message-input');
   const chatMessages = document.getElementById('chat-messages');
@@ -9,16 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveChatBtn = document.getElementById('save-chat-btn');
   const clearChatBtn = document.getElementById('clear-chat-btn');
   const modelSelector = document.getElementById('model-selector');
+// REGION END: setup
 
-  // --- Initial State ---
+// REGION START: initial-state
   const updateControlButtons = () => {
     const hasMessages = chatContainer.classList.contains('has-messages');
     saveChatBtn.disabled = !hasMessages;
     clearChatBtn.disabled = !hasMessages;
   };
-  updateControlButtons(); // Set initial state on load
+  updateControlButtons();
+// REGION END: initial-state
 
-  // --- Event Listeners ---
+// REGION START: listeners
   suggestionContainer.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('suggestion-item')) {
       const prompt = e.target.getAttribute('data-prompt');
@@ -34,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!chatContainer.classList.contains('has-messages')) {
         chatContainer.classList.add('has-messages');
-        updateControlButtons(); // Enable buttons
+        updateControlButtons();
     }
 
     addMessage(userMessage, 'user');
@@ -46,32 +49,33 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch('http://localhost:3000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // UPDATED BODY: send the message AND the selected model
         body: JSON.stringify({
           message: userMessage,
           model: modelSelector.value 
         }),
       });
 
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      typingIndicator.remove();
+      addMessage(data.reply, 'bot');
 
     } catch (error) {
       console.error('Error:', error);
-      const p = document.createElement('p');
-      p.textContent = 'Sorry, something went wrong. Please try again.';
-      typingIndicator.innerHTML = '';
-      typingIndicator.appendChild(p);
-      typingIndicator.classList.remove('typing');
+      if(typingIndicator) typingIndicator.remove();
+      addMessage('Sorry, something went wrong. Please check if the server is running and try again.', 'bot');
     }
   });
 
-  // NEW: Clear Chat Logic
   clearChatBtn.addEventListener('click', () => {
     chatMessages.innerHTML = '';
     chatContainer.classList.remove('has-messages');
-    updateControlButtons(); // Disable buttons
+    updateControlButtons();
   });
 
-  // NEW: Save Chat Logic
   saveChatBtn.addEventListener('click', () => {
     let chatContent = "AI Market Analyst Chat Log\n";
     chatContent += `Saved on: ${new Date().toLocaleString()}\n\n`;
@@ -80,11 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
     messages.forEach(msg => {
       const isUser = msg.classList.contains('user');
       const prefix = isUser ? 'User:' : 'Leo:';
-      // .textContent gets the clean text without any HTML or Markdown
       chatContent += `${prefix}\n${msg.textContent.trim()}\n\n`;
     });
     
-    // Create a blob and trigger a download
     const blob = new Blob([chatContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -95,8 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   });
+// REGION END: listeners
 
-  // --- Core Functions ---
+// REGION START: add-message
   function addMessage(text, ...senders) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', ...senders);
@@ -114,3 +117,4 @@ document.addEventListener('DOMContentLoaded', () => {
     return messageElement;
   }
 });
+// REGION END: add-message
