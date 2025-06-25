@@ -27,7 +27,7 @@ function getLocation() {
 // If user allows location access
 function onSuccess(position) {
     const { latitude, longitude } = position.coords;
-    fetchWeather(latitude, longitude);
+    fetchWeatherFromProxy(latitude, longitude);
 }
 
 // If user denies location access or an error occurs
@@ -35,7 +35,7 @@ function onError(error) {
     console.error('Geolocation Error:', error.message);
     loadingMessage.textContent = `Error: ${error.message}. Fetching weather for a default location.`;
     // Fallback to a default location (e.g., Amsterdam)
-    fetchWeather(52.37, 4.89); 
+    fetchWeatherFromProxy(52.37, 4.89); 
 }
 
 // --- 4. API FETCH ---
