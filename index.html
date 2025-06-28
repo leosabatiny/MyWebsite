@@ -16,6 +16,14 @@
   </style>
 </head>
 <body>
+
+  <!-- NEW: Interactive Background Container -->
+  <div class="blob-container">
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+  </div>
+
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="logo">Leonardo</a>
@@ -30,13 +38,22 @@
 
   <header class="hero">
     <div class="container">
-      <h1>Cultivating a Life of Leverage.</h1>
+      <h1 class="hero-title-gradient">Cultivating a Life of Leverage.</h1>
       <p class="subtitle">
         First-year Artificial Intelligence student at the University of Amsterdam, focusing on the responsible application of technology through discipline, rationality, and continuous cognitive development.
       </p>
       <a href="about.html" class="btn">Learn More About Me</a>
     </div>
   </header>
+
+  <!-- MOVED & RESTYLED: LeoLearn Promo Section -->
+  <div class="leolearn-promo">
+    <div class="container">
+      <h2>Introducing LeoLearn</h2>
+      <p class="subtitle">An evolving collection of interactive learning modules. Explore complex topics like AI, tailored to your level of understanding. Click to start your journey.</p>
+      <a href="leolearn.html" class="btn">Explore LeoLearn</a>
+    </div>
+  </div>
 
   <main>
     <div class="page-section">
@@ -81,7 +98,6 @@
               <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=Clock" alt="Analog Clock Project"></div>
               <div class="card-content">
                 <h3>Analog & Digital Clocks</h3>
-                <!-- UPDATED DESCRIPTION -->
                 <p>A side-by-side simulation of two clocks. A classic analog clock with discrete ticking hands and a retro digital clock with 7-segment glyphs, both built with the HTML Canvas API.</p>
                 <div class="card-tags"><span class="tag">Canvas API</span><span class="tag">Animation</span><span class="tag">JavaScript</span></div>
               </div>
@@ -117,5 +133,20 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // NEW: Interactive Blob Follower Script
+    const blobContainer = document.querySelector('.blob-container');
+    const blobs = document.querySelectorAll('.blob');
+
+    document.body.addEventListener('mousemove', (event) => {
+      const { clientX, clientY } = event;
+      
+      // Animate using a more performant transform property
+      blobContainer.animate({
+        transform: `translate(${clientX * 0.1}px, ${clientY * 0.1}px)`
+      }, { duration: 4000, fill: "forwards", easing: "ease-out" });
+    });
+  </script>
 </body>
 </html>

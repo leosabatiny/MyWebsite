@@ -1,0 +1,88 @@
+<!-- leolearn-ai.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn AI - LeoLearn</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Leonardo</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="leolearn.html">Back to LeoLearn</a></li>
+                <li><a href="projects.html">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Difficulty Selector Modal -->
+    <div class="difficulty-modal-overlay" id="difficulty-modal-overlay">
+        <div class="difficulty-modal">
+            <h2>How would you like to learn about AI?</h2>
+            <p>Choose a level that best fits your current knowledge.</p>
+            <div class="difficulty-options-container">
+                <div class="difficulty-option" id="select-beginner">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
+                    <h3>Beginner</h3>
+                    <p>Start with simple analogies and the big picture. No code required.</p>
+                </div>
+                <div class="difficulty-option" id="select-intermediate">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"></path><path d="m4 14 6-6 2-3"></path><path d="m11 11 4.5 4.5"></path><path d="m14 4 6 6"></path></svg>
+                    <h3>Intermediate</h3>
+                    <p>Dive into core concepts like machine learning and see basic code.</p>
+                </div>
+                <div class="difficulty-option" id="select-advanced">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 2.5 12.5 10.5 4.5"></path><path d="m21.5 4.5-8 8 8 8"></path></svg>
+                    <h3>Advanced</h3>
+                    <p>Explore technical details, model architectures, and ethical questions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <main class="page-section" id="learning-content-wrapper">
+        <!-- Content will be dynamically displayed here by leolearn-ai.js -->
+
+        <!-- Beginner Content -->
+        <div id="content-beginner" class="learning-content is-hidden">
+            <div class="container">
+                <h2>AI for Beginners: The Big Picture</h2>
+                <p>Imagine teaching a child to recognize a cat. You don't write a list of rules like "has pointy ears, has whiskers." You just show them many pictures of cats. After a while, they just *know* what a cat is. AI, at its heart, works in a very similar way. It learns from examples, not from explicit instructions.</p>
+                <h3>Key Idea: Learning from Data</h3>
+                <p>Artificial Intelligence is a broad field of computer science that aims to create machines that can perform tasks that typically require human intelligence. This includes things like understanding language, recognizing images, and making decisions.</p>
+            </div>
+        </div>
+
+        <!-- Intermediate Content -->
+        <div id="content-intermediate" class="learning-content is-hidden">
+            <div class="container">
+                <h2>AI for Intermediates: Machine Learning</h2>
+                <p>A core concept in modern AI is <strong>Machine Learning (ML)</strong>. This is the specific process of "teaching" the computer. Instead of programming explicit rules, we provide an algorithm with a vast amount of data and let it build its own model (a set of rules and patterns) to make predictions or decisions.</p>
+                <h3>Types of Machine Learning:</h3>
+                <ul>
+                    <li><strong>Supervised Learning:</strong> We give the model labeled data (e.g., pictures of cats labeled "cat" and dogs labeled "dog"). The model learns to map inputs to the correct outputs.</li>
+                    <li><strong>Unsupervised Learning:</strong> We give the model unlabeled data and ask it to find hidden patterns or structures on its own (e.g., grouping customers by purchasing behavior).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Advanced Content -->
+        <div id="content-advanced" class="learning-content is-hidden">
+            <div class="container">
+                <h2>Advanced AI: Neural Networks & Ethics</h2>
+                <p>The models used in many state-of-the-art AI systems are called <strong>Artificial Neural Networks (ANNs)</strong>, inspired by the structure of the human brain. These are networks of interconnected "neurons" (mathematical functions) organized in layers. Data is passed through, and each layer extracts progressively more complex features.</p>
+                <h3>The Transformer Architecture:</h3>
+                <p>Modern Large Language Models (LLMs) like Gemini are built on an architecture called the <strong>Transformer</strong>. Its key innovation is the "attention mechanism," which allows the model to weigh the importance of different words in the input text, enabling it to understand context and long-range dependencies far more effectively than previous models.</p>
+                <h3>Ethical Considerations:</h3>
+                <p>As AI becomes more powerful, we must address critical ethical questions regarding bias in training data, transparency (or "black box" nature) of models, and the potential societal impact of automation.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="leolearn-ai.js" defer></script>
+</body>
+</html>
