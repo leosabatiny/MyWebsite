@@ -1,0 +1,68 @@
+<!-- leolearn-taylor.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Taylor Series - LeoLearn</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwZuNíjPPOgaFp/kv8sGFFRgyoDRFTYqpVosiAgtQNSkSEGI//Ie38" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Leonardo</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="leolearn.html">Back to LeoLearn</a></li>
+                <li><a href="projects.html">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Difficulty Selector Modal -->
+    <div class="difficulty-modal-overlay" id="difficulty-modal-overlay">
+        <div class="difficulty-modal">
+            <h2>How would you like to learn about Taylor Series?</h2>
+            <p>Choose a level that best fits your current knowledge.</p>
+            <div class="difficulty-options-container">
+                <div class="difficulty-option" id="select-beginner">
+                    <svg class="difficulty-icon" viewBox="0 0 24 24"><line x1="12" y1="6" x2="12" y2="18"></line><line x1="10" y1="6" x2="14" y2="6"></line><line x1="10" y1="18" x2="14" y2="18"></line></svg>
+                    <h3>Beginner</h3>
+                    <p>Learn the core idea of approximating complex curves.</p>
+                </div>
+                <div class="difficulty-option" id="select-intermediate">
+                    <svg class="difficulty-icon" viewBox="0 0 24 24"><line x1="9" y1="6" x2="9" y2="18"></line><line x1="7" y1="6" x2="11" y2="6"></line><line x1="7" y1="18" x2="11" y2="18"></line><line x1="15" y1="6" x2="15" y2="18"></line><line x1="13" y1="6" x2="17" y2="6"></line><line x1="13" y1="18" x2="17" y2="18"></line></svg>
+                    <h3>Intermediate</h3>
+                    <p>Visually build a Taylor polynomial term-by-term.</p>
+                </div>
+                <div class="difficulty-option" id="select-advanced">
+                    <svg class="difficulty-icon" viewBox="0 0 24 24"><line x1="7" y1="6" x2="7" y2="18"></line><line x1="5" y1="6" x2="9" y2="6"></line><line x1="5" y1="18" x2="9" y2="18"></line><line x1="12" y1="6" x2="12" y2="18"></line><line x1="10" y1="6" x2="14" y2="6"></line><line x1="10" y1="18" x2="14" y2="18"></line><line x1="17" y1="6" x2="17" y2="18"></line><line x1="15" y1="6" x2="19" y2="6"></line><line x1="15" y1="18" x2="19" y2="18"></line></svg>
+                    <h3>Advanced</h3>
+                    <p>Explore the formal definition and the concept of error.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <main class="page-section" id="learning-content-wrapper">
+        <!-- These containers are now empty and will be filled by JavaScript -->
+        <div id="content-beginner" class="learning-content is-hidden"></div>
+        <div id="content-intermediate" class="learning-content is-hidden"></div>
+        <div id="content-advanced" class="learning-content is-hidden"></div>
+
+        <div class="container references-container">
+            <div class="references" id="references">
+                <h2>References</h2>
+                <!-- The ordered list will be generated here by JavaScript -->
+                <ol id="references-list"></ol>
+            </div>
+        </div>
+    </main>
+
+    <script src="leolearn-taylor.js" defer></script>
+</body>
+</html>

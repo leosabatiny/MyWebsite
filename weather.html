@@ -7,93 +7,74 @@
     <title>Live Weather – Leonardo</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        body, html {
-            height: 100%;
-        }
-        .weather-container {
+        /* NEW: Styles for the dynamic background page */
+        #weather-page-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: calc(100% - 64px); /* Full height minus navbar */
-            margin-top: 64px;
+            min-height: 100vh;
+            padding: 2rem;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
         }
+        /* NEW: Sleek, "Glassmorphism" Widget Style */
         .weather-widget {
             width: 100%;
-            max-width: 350px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2.5rem;
+            max-width: 400px;
+            background: rgba(20, 20, 20, 0.65); /* Semi-transparent background */
+            backdrop-filter: blur(15px); /* The blur effect */
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+            border-radius: 16px;
             text-align: center;
-            /* A subtle fade-in animation */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            color: var(--text-primary); /* Ensure all text is high contrast */
+        }
+        .widget-body {
+            padding: 2.5rem;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeIn 0.5s ease-out forwards;
+            animation: fadeIn 0.5s 0.2s ease-out forwards;
         }
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .weather-widget h2 {
-            margin-top: 0;
-            font-size: 1.75rem;
-            border: none;
-            padding: 0;
-        }
-        .weather-widget .icon {
-            width: 100px;
-            height: 100px;
-            margin: 0.5rem auto;
-            /* Filter to make the icon match the site's white text color */
-            filter: brightness(0) invert(0.9);
-        }
-        .weather-widget .temp {
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            line-height: 1;
-            margin: 0;
-        }
-        .weather-widget .description {
-            font-size: 1.1rem;
-            text-transform: capitalize;
-            margin-top: 0.5rem;
-        }
-        .weather-widget .min-max {
-            margin-top: 1.5rem;
-            color: var(--text-secondary);
-        }
-        #loading-message {
-            color: var(--text-secondary);
-        }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        .widget-body h2 { border: none; padding: 0; margin: 0.5rem 0 0 0; font-size: 2rem; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .widget-body .icon { width: 120px; height: 120px; margin: 0 auto; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3)); }
+        .widget-body .temp { font-size: 4.5rem; font-weight: 700; color: var(--text-primary); line-height: 1; margin: 0; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .widget-body .description { font-size: 1.1rem; text-transform: capitalize; margin-top: 0.5rem; }
+        .local-time { color: var(--text-secondary); font-size: 0.9rem; margin-top: -0.25rem; margin-bottom: 2rem; }
+        .weather-details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; }
+        .detail-item .label { font-size: 0.8rem; color: var(--text-secondary); }
+        .detail-item .value { font-size: 1.1rem; color: var(--text-primary); font-weight: 500; }
+        #loading-message { color: var(--text-secondary); font-style: italic; padding: 3rem; }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Leonardo</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
+    <!-- The main container now has an ID for background control -->
+    <div id="weather-page-container">
+        <!-- The navbar is positioned absolutely to float over the background -->
+        <nav class="navbar" style="position: absolute; top: 0; left: 0; right: 0; background: transparent; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+            <div class="container"><a href="index.html" class="logo">Leonardo</a><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        </nav>
+        
+        <div class="weather-widget" id="weather-widget">
+            <!-- The header with search/geo buttons has been completely removed -->
+            <div class="widget-body" id="widget-body" style="display: none;">
+                <p class="local-time" id="local-time">--:--</p>
+                <img src="" alt="Weather icon" class="icon" id="weather-icon">
+                <h2 id="city">City Name</h2>
+                <p class="temp" id="temperature">--°</p>
+                <p class="description" id="weather-desc">Description</p>
+                <div class="weather-details">
+                    <div class="detail-item"><span class="label">Feels Like</span><p class="value" id="feels-like">--°</p></div>
+                    <div class="detail-item"><span class="label">Humidity</span><p class="value" id="humidity">--%</p></div>
+                    <div class="detail-item"><span class="label">Wind</span><p class="value" id="wind-speed">-- km/h</p></div>
+                </div>
+            </div>
+            <p id="loading-message" style="padding: 3rem;">Requesting your location...</p>
         </div>
-    </nav>
-    <div class="weather-container">
-        <div class="weather-widget" id="weather-widget" style="display: none;">
-            <h2 id="city">City Name</h2>
-            <img src="" alt="Weather icon" class="icon" id="weather-icon">
-            <p class="temp" id="temperature">--°C</p>
-            <p class="description" id="weather-desc">Description</p>
-            <p class="min-max" id="min-max-temp">L: --° / H: --°</p>
-        </div>
-        <p id="loading-message">Fetching your location and weather data...</p>
     </div>
-
-    <!-- The logic will be in its own file -->
     <script src="weather.js" defer></script>
 </body>
 </html>

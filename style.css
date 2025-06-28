@@ -725,3 +725,650 @@ a:hover { color: var(--accent-hover); }
 .learning-content li {
   margin-bottom: 0.5rem;
 }
+/* --- LeoLearn Filters --- */
+.filter-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+.filter-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.filter-select {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.filter-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+.filter-select:disabled {
+  cursor: not-allowed;
+  background-color: #1a1a1a;
+  opacity: 0.6;
+}
+
+/* Make the grid container transition smoothly during reflow */
+#leolearn-grid {
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* --- LeoLearn Content Enhancements --- */
+.learning-content pre {
+  background-color: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+.learning-content code {
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+/* KaTeX Math Styling */
+.katex {
+  font-size: 1.1em !important;
+  color: var(--text-primary);
+}
+
+.interactive-graph-placeholder {
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+.interactive-graph-placeholder h3 {
+  margin-top: 0;
+  color: var(--text-primary);
+}
+.interactive-graph-placeholder p {
+  color: var(--text-secondary);
+  max-width: 60ch;
+  margin: 0 auto;
+}
+
+/* --- LeoLearn Content Visual Enhancements --- */
+.info-box {
+  background-color: var(--bg-surface);
+  border-left: 4px solid var(--accent);
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 0 8px 8px 0;
+}
+.info-box h4 {
+  margin-top: 0;
+  color: var(--text-primary);
+}
+.info-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.info-box li {
+  padding: 0.5rem 0;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.info-box li + li {
+    border-top: 1px solid var(--border-color);
+}
+.icon-inline {
+    flex-shrink: 0;
+    margin-top: 0.1em;
+}
+.icon-inline svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+.interactive-toggle {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 1rem 1.5rem;
+}
+.interactive-toggle summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.interactive-toggle summary:hover {
+    color: var(--accent-hover);
+}
+.interactive-toggle p {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* --- Interactive Neuron Styles --- */
+.interactive-neuron {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background-color: var(--bg-surface);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin-top: 2rem;
+}
+.neuron-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-basis: 300px;
+}
+.input-group {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  gap: 1rem;
+}
+.input-group label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--bg-dark);
+  border-radius: 3px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--accent);
+  cursor: pointer;
+  border-radius: 50%;
+}
+.neuron-core {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.neuron-body {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.neuron-output .output-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  background-color: var(--bg-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  min-width: 120px;
+}
+
+
+/* --- Socratic Q&A Toggles --- */
+.interactive-toggle {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.2s ease;
+}
+.interactive-toggle[open] {
+    border-color: var(--accent);
+}
+.interactive-toggle summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    list-style-type: '🤔 ';
+    transition: color 0.2s ease;
+}
+.interactive-toggle summary:hover {
+    color: var(--accent-hover);
+}
+.interactive-toggle p {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+.interactive-toggle p strong {
+    color: var(--text-primary);
+}
+
+
+
+/* --- New Difficulty Icon Styles --- */
+.difficulty-icon {
+  width: 36px;
+  height: 36px;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-bottom: 1rem;
+}
+
+/* --- Content Header & Relocated Button --- */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+.content-header h2 {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+.change-difficulty-btn {
+    display: inline-block;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+.change-difficulty-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+
+/* --- MSE Demo Styles --- */
+.mse-demo {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+.mse-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    text-align: center;
+    align-items: center;
+    padding: 0.75rem 0;
+}
+.mse-row + .mse-row {
+    border-top: 1px solid var(--border-color);
+}
+.mse-header {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+.mse-value, .mse-error {
+    font-size: 1.25rem;
+    font-family: monospace;
+}
+.mse-input {
+    width: 100%;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1.25rem;
+    font-family: monospace;
+}
+.mse-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+.mse-total {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mse-total h4 {
+    margin: 0;
+    color: var(--text-primary);
+}
+#mse-cost-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--accent-hover);
+}
+
+/* --- SVD Image Demo --- */
+.svd-image-demo {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.svd-image-container {
+    min-height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#svd-shape {
+    transition: transform 0.1s ease-out;
+}
+.svd-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* --- SVD Calculator Demo --- */
+.svd-calculator-demo {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+.svd-calculator-demo h4 {
+    margin-top: 0;
+    text-align: center;
+}
+.matrix-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 250px;
+    margin: 0 auto;
+}
+.matrix-input {
+    width: 100%;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.75rem;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1.25rem;
+    font-family: monospace;
+}
+.svd-results {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+.svd-output {
+    font-family: monospace;
+    font-size: 1.25rem;
+    color: var(--accent-hover);
+    font-weight: 700;
+}
+
+/* --- Citation and References Styles --- */
+.citation {
+    position: relative;
+    display: inline-block;
+    vertical-align: super;
+    font-size: 0.65em;
+    line-height: 1;
+}
+.citation a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 2px 4px;
+}
+.citation .citation-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 150%; /* Position above the number */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    background-color: var(--bg-surface);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 8px;
+    z-index: 100;
+    font-size: 0.9rem; /* Reset font size for readability */
+    line-height: 1.6;
+    text-align: left;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none; /* So the tooltip doesn't block mouse events */
+}
+
+/* Tooltip Arrow */
+.citation .citation-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--border-color) transparent transparent transparent;
+}
+
+.citation a:hover .citation-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.references-container {
+    margin-top: 4rem;
+}
+
+.references {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+}
+.references h2 {
+    border: none;
+    margin-bottom: 1.5rem;
+}
+.references ol {
+    list-style: none;
+    padding-left: 0;
+}
+.references li {
+    padding: 0.75rem 0;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.9rem;
+}
+.references li + li {
+    border-top: 1px solid var(--border-color);
+}
+
+/* --- Web Dev - CSS Box Demo --- */
+.css-demo {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+@media (min-width: 768px) {
+    .css-demo {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+.css-box-container {
+    min-height: 200px;
+    background-color: var(--bg-dark);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+#css-box {
+    border: 2px dashed var(--border-color);
+    color: var(--text-primary);
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+.css-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.css-controls input[type="color"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+}
+.css-controls input[type="color"]::-webkit-color-swatch {
+    border-radius: 4px;
+    border: none;
+}
+.css-controls input[type="color"]::-moz-color-swatch {
+    border-radius: 4px;
+    border: none;
+}
+
+
+/* --- Web Dev - JS DOM Demo --- */
+.js-demo {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+#js-target {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    min-height: 50px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+#js-trigger-btn {
+    margin-top: 1rem;
+}
+
+/* --- Taylor Series Demo Styles (REVISED) --- */
+.taylor-demo, .taylor-error-demo {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.taylor-plot-container {
+    background-color: var(--bg-dark);
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+.plot-title {
+    text-align:center; 
+    font-size:0.9rem; 
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+.taylor-plot-container svg {
+    width: 100%;
+    height: auto;
+}
+.plot-axis {
+    stroke: var(--border-color);
+    stroke-width: 1.5;
+}
+.taylor-true-func {
+    stroke: var(--text-secondary);
+    stroke-width: 2;
+    stroke-dasharray: 5 5;
+    fill: none;
+}
+.taylor-approx-func {
+    stroke: var(--accent);
+    stroke-width: 3;
+    fill: none;
+}
+.taylor-error-func {
+    stroke: #E11D48; /* Red for error */
+    stroke-width: 3;
+    fill: none;
+}
+.taylor-eval-line {
+    stroke: var(--text-primary);
+    stroke-width: 1.5;
+    opacity: 0.7;
+}
+.taylor-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* --- Quantum Mechanics Demo Styles --- */
+.qm-prob-density {
+    stroke: #E11D48; /* Red for probability */
+    stroke-width: 3;
+    fill: none;
+}

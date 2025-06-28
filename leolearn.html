@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LeoLearn - Interactive Learning Modules</title>
   <link rel="stylesheet" href="style.css">
-</head>
-<body>
+</head><body>
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="logo">Leonardo</a>
@@ -23,50 +22,52 @@
   <header class="page-header">
     <div class="container">
       <h1>Welcome to LeoLearn</h1>
-      <p style="color: var(--text-secondary);">Select a topic to begin your interactive learning experience.</p>
+      <p style="color: var(--text-secondary);">Select a topic or use the filters below to begin your interactive learning experience.</p>
     </div>
   </header>
 
   <main>
     <div class="container">
-      <div class="project-grid">
+      <div class="filter-container">
+        <div class="filter-group"><label for="topic-filter">Domain</label><select id="topic-filter" class="filter-select"></select></div>
+        <div class="filter-group"><label for="subtopic-filter">Field</label><select id="subtopic-filter" class="filter-select" disabled></select></div>
+        <div class="filter-group"><label for="subsubtopic-filter">Concept</label><select id="subsubtopic-filter" class="filter-select" disabled></select></div>
+      </div>
 
-        <!-- First Learning Module: Artificial Intelligence -->
-        <a href="leolearn-ai.html" class="card-link">
+      <div class="project-grid" id="leolearn-grid">
+        <!-- Machine Learning Module -->
+        <a href="leolearn-ml.html" class="card-link leolearn-card" data-topic="technology" data-subtopic="ai" data-subsubtopic="machine-learning"><div class="card"><div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=Learn+ML" alt="Learn Machine Learning"></div><div class="card-content"><h3>Introduction to Machine Learning</h3><p>A hands-on guide to the core principles of ML, where systems learn from data. Tailored to your level, from simple ideas to the math that powers it all.</p><div class="card-tags"><span class="tag">Technology</span><span class="tag">AI</span><span class="tag">Machine Learning</span></div></div></div></a>
+        <!-- SVD Module -->
+        <a href="leolearn-svd.html" class="card-link leolearn-card" data-topic="science-mathematics" data-subtopic="mathematics" data-subsubtopic="linear-algebra"><div class="card"><div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/E11D48?text=Learn+SVD" alt="Singular Value Decomposition"></div><div class="card-content"><h3>Singular Value Decomposition (SVD)</h3><p>Discover how to break down any matrix into its fundamental components. A cornerstone of data compression, machine learning, and statistical analysis.</p><div class="card-tags"><span class="tag">Science & Mathematics</span><span class="tag">Mathematics</span><span class="tag">Linear Algebra</span></div></div></div></a>
+        <!-- Web Dev Module -->
+        <a href="leolearn-webdev.html" class="card-link leolearn-card" data-topic="technology" data-subtopic="web-development" data-subsubtopic="html-css"><div class="card"><div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/16A34A?text=Learn+WebDev" alt="Introduction to Web Development"></div><div class="card-content"><h3>Introduction to Web Development</h3><p>Learn about the three core technologies—HTML, CSS, and JavaScript—that power every website you visit, from the basic structure to interactive features.</p><div class="card-tags"><span class="tag">Technology</span><span class="tag">Web Development</span><span class="tag">HTML & CSS</span></div></div></div></a>
+        <!-- Taylor Series Module -->
+        <a href="leolearn-taylor.html" class="card-link leolearn-card" data-topic="science-mathematics" data-subtopic="mathematics" data-subsubtopic="calculus"><div class="card"><div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/8B5CF6?text=Learn+Calculus" alt="Taylor Series"></div><div class="card-content"><h3>Taylor Series</h3><p>Explore how any complex function can be approximated by an infinite sum of simple terms, a foundational concept in calculus, physics, and engineering.</p><div class="card-tags"><span class="tag">Science & Mathematics</span><span class="tag">Mathematics</span><span class="tag">Calculus</span></div></div></div></a>
+        
+        <!-- NEW Quantum Mechanics Module -->
+        <a href="leolearn-qm.html" class="card-link leolearn-card"
+           data-topic="science-mathematics"
+           data-subtopic="physics"
+           data-subsubtopic="quantum-mechanics">
           <div class="card">
-            <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/2563EB?text=Learn+AI" alt="Learn Artificial Intelligence"></div>
+             <div class="card-image"><img src="https://placehold.co/600x400/0A0A0A/F59E0B?text=Learn+QM" alt="Quantum Mechanics"></div>
             <div class="card-content">
-              <h3>Introduction to Artificial Intelligence</h3>
-              <p>Explore the foundational concepts of AI, from basic definitions to the inner workings of neural networks, in a way that's tailored to your experience level.</p>
+              <h3>Introduction to Quantum Mechanics</h3>
+              <p>Delve into the strange and fascinating world of the very small, where particles are waves and reality is governed by probability.</p>
               <div class="card-tags">
-                <span class="tag">Foundational</span>
-                <span class="tag">AI</span>
-                <span class="tag">Technology</span>
-                <span class="tag">Interactive</span>
+                <span class="tag">Science & Mathematics</span>
+                <span class="tag">Physics</span>
+                <span class="tag">Quantum Mechanics</span>
               </div>
             </div>
           </div>
         </a>
-        
-        <!-- Add more learning modules here as you create them -->
-        <div class="card" style="opacity: 0.5; border-style: dashed;">
-            <div class="card-content" style="text-align: center; justify-content: center;">
-              <h3 style="color: var(--text-secondary);">More topics coming soon...</h3>
-            </div>
-        </div>
 
+        <div class="card" style="opacity: 0.5; border-style: dashed;"><div class="card-content" style="text-align: center; justify-content: center;"><h3 style="color: var(--text-secondary);">More topics coming soon...</h3></div></div>
       </div>
     </div>
   </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p class="copyright">© 2024 Leonardo</p>
-      <div class="footer-links">
-        <a href="https://www.linkedin.com/in/leonardo-s-00a346254/" target="_blank">LinkedIn</a>
-        <a href="https://github.com/leosabatiny" target="_blank">GitHub</a>
-      </div>
-    </div>
-  </footer>
+  <footer class="footer"><div class="container"><p class="copyright">© 2024 Leonardo</p><div class="footer-links"><a href="https://www.linkedin.com/in/leonardo-s-00a346254/" target="_blank">LinkedIn</a><a href="https://github.com/leosabatiny" target="_blank">GitHub</a></div></div></footer>
+  <script src="leolearn-filter.js" defer></script>
 </body>
 </html>
